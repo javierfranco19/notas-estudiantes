@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Consulta tu Nota</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 400px; margin: auto; padding: 20px; background-color: #fefefe; }
+        input, button { padding: 10px; font-size: 16px; width: 100%; margin-top: 10px; }
+        button { background-color: #28a745; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #218838; }
+        #resultado { margin-top: 20px; background: #f9f9f9; border: 1px solid #ccc; padding: 15px; }
+        strong { display: inline-block; width: 130px; }
+    </style>
+</head>
+<body>
+    <h2>Consulta tu Nota</h2>
+    <input type="text" id="idInput" placeholder="Ej: NT0001" />
+    <button onclick="consultarNota()">Ver Nota</button>
+    <div id="resultado"></div>
+    <script>
+        const datos = {'NT0001': {'Nombre': 'Javier Reyes ', 'Tareas': 20.0, 'Exámenes': 45.03, 'Total Momentáneo': 65.03}, 'NT0002': {'Nombre': 'Glendy Antunez ', 'Tareas': 20.0, 'Exámenes': 43.77, 'Total Momentáneo': 63.77}, 'NT0003': {'Nombre': 'Emely Mejia', 'Tareas': 20.0, 'Exámenes': 42.63, 'Total Momentáneo': 62.63}, 'NT0004': {'Nombre': 'Raul Mejia ', 'Tareas': 20.0, 'Exámenes': 42.29, 'Total Momentáneo': 62.29}, 'NT0005': {'Nombre': 'Oscar Romero', 'Tareas': 20.0, 'Exámenes': 41.94, 'Total Momentáneo': 61.94}, 'NT0006': {'Nombre': 'Wilberto Zeron', 'Tareas': 20.0, 'Exámenes': 41.71, 'Total Momentáneo': 61.71}, 'NT0007': {'Nombre': 'Vanesa Bustillo', 'Tareas': 20.0, 'Exámenes': 41.37, 'Total Momentáneo': 61.37}, 'NT0008': {'Nombre': 'Alejandra Moreno', 'Tareas': 20.0, 'Exámenes': 41.03, 'Total Momentáneo': 61.03}, 'NT0009': {'Nombre': 'Vaensa Oseguera', 'Tareas': 20.0, 'Exámenes': 41.03, 'Total Momentáneo': 61.03}, 'NT0010': {'Nombre': 'Oralia Renderos', 'Tareas': 20.0, 'Exámenes': 40.34, 'Total Momentáneo': 60.34}, 'NT0011': {'Nombre': 'Elena Ortiz', 'Tareas': 20.0, 'Exámenes': 39.66, 'Total Momentáneo': 59.66}, 'NT0012': {'Nombre': 'Isael Monge ', 'Tareas': 20.0, 'Exámenes': 38.29, 'Total Momentáneo': 58.29}, 'NT0013': {'Nombre': 'Dinora Quintanilla', 'Tareas': 20.0, 'Exámenes': 38.17, 'Total Momentáneo': 58.17}, 'NT0014': {'Nombre': 'Pamela', 'Tareas': 20.0, 'Exámenes': 38.06, 'Total Momentáneo': 58.06}, 'NT0015': {'Nombre': 'Maricel Rivera', 'Tareas': 20.0, 'Exámenes': 37.49, 'Total Momentáneo': 57.49}, 'NT0016': {'Nombre': 'Perla Castillo ', 'Tareas': 20.0, 'Exámenes': 37.14, 'Total Momentáneo': 57.14}, 'NT0017': {'Nombre': 'Fernando Caranza', 'Tareas': 20.0, 'Exámenes': 36.91, 'Total Momentáneo': 56.91}, 'NT0018': {'Nombre': 'Kelyn Ayala', 'Tareas': 20.0, 'Exámenes': 36.69, 'Total Momentáneo': 56.69}, 'NT0019': {'Nombre': 'Bartola Flores', 'Tareas': 20.0, 'Exámenes': 36.0, 'Total Momentáneo': 56.0}, 'NT0020': {'Nombre': 'Jacsson Maradiaga', 'Tareas': 20.0, 'Exámenes': 35.89, 'Total Momentáneo': 55.89}, 'NT0021': {'Nombre': 'Maribel Perdomo', 'Tareas': 20.0, 'Exámenes': 34.97, 'Total Momentáneo': 54.97}, 'NT0022': {'Nombre': 'Aury Casco', 'Tareas': 20.0, 'Exámenes': 34.74, 'Total Momentáneo': 54.74}, 'NT0023': {'Nombre': 'Edith Maldonado', 'Tareas': 20.0, 'Exámenes': 34.51, 'Total Momentáneo': 54.51}, 'NT0024': {'Nombre': 'Beren Martinez', 'Tareas': 20.0, 'Exámenes': 34.4, 'Total Momentáneo': 54.4}, 'NT0025': {'Nombre': 'Darwing George', 'Tareas': 20.0, 'Exámenes': 33.6, 'Total Momentáneo': 53.6}, 'NT0026': {'Nombre': 'Oscar Mejia', 'Tareas': 20.0, 'Exámenes': 32.8, 'Total Momentáneo': 52.8}, 'NT0027': {'Nombre': 'Miriam Interiano ', 'Tareas': 20.0, 'Exámenes': 31.31, 'Total Momentáneo': 51.31}, 'NT0028': {'Nombre': 'Anderson Mejia', 'Tareas': 20.0, 'Exámenes': 30.74, 'Total Momentáneo': 50.74}, 'NT0029': {'Nombre': 'Jerson Guzman', 'Tareas': 20.0, 'Exámenes': 29.94, 'Total Momentáneo': 49.94}, 'NT0030': {'Nombre': 'Yulisa', 'Tareas': 20.0, 'Exámenes': 24.0, 'Total Momentáneo': 44.0}, 'NT0031': {'Nombre': 'Anderson Avila', 'Tareas': 5.0, 'Exámenes': 38.86, 'Total Momentáneo': 43.86}};
+
+        function consultarNota() {
+            const id = document.getElementById('idInput').value.trim().toUpperCase();
+            const resultadoDiv = document.getElementById('resultado');
+            if (datos[id]) {
+                const d = datos[id];
+                resultadoDiv.innerHTML = `
+                    <p><strong>Nombre:</strong> ${d.Nombre}</p>
+                    <p><strong>Tareas:</strong> ${d.Tareas}</p>
+                    <p><strong>Exámenes:</strong> ${d["Exámenes"]}</p>
+                    <p><strong>Total Momentáneo:</strong> ${d["Total Momentáneo"]}</p>
+                    <p><strong>Presentación:</strong> -</p>
+                `;
+            } else {
+                resultadoDiv.innerHTML = `<p style="color:red">ID no encontrado. Verifique que esté bien escrito.</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
