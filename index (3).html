@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Consulta tu Nota</title>
+  <style>
+    body {{ font-family: Arial, sans-serif; padding: 40px; }}
+    input[type="text"] {{
+      padding: 10px;
+      font-size: 16px;
+      width: 300px;
+      margin-bottom: 10px;
+    }}
+    button {{
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }}
+    .card {{
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      padding: 20px;
+      width: 400px;
+    }}
+    ul {{
+      margin-top: 10px;
+      padding-left: 20px;
+    }}
+  </style>
+</head>
+<body>
+  <h2>Consulta tu Nota</h2>
+  <input type="text" id="idInput" placeholder="Ej: NT0001" />
+  <br />
+  <button onclick="verNota()">Ver Nota</button>
+
+  <div class="card" id="resultado" style="display:none;"></div>
+
+  <script>
+    const estudiantes = {"NT0001": {"Nombre": "Javier Reyes ", "Examen 1": 94, "Examen 2": 100, "Examen 3": 100, "Examen 4": 100, "Promedio": 45.02857142857143}, "NT0002": {"Nombre": "Glendy Antunez ", "Examen 1": 88, "Examen 2": 95, "Examen 3": 100, "Examen 4": 100, "Promedio": 43.77142857142857}, "NT0003": {"Nombre": "Emely Mejia", "Examen 1": 88, "Examen 2": 95, "Examen 3": 90, "Examen 4": 100, "Promedio": 42.62857142857143}, "NT0004": {"Nombre": "Raul Mejia ", "Examen 1": 88, "Examen 2": 95, "Examen 3": 90, "Examen 4": 97, "Promedio": 42.285714285714285}, "NT0005": {"Nombre": "Oscar Romero", "Examen 1": 88, "Examen 2": 95, "Examen 3": 100, "Examen 4": 84, "Promedio": 41.94285714285715}, "NT0006": {"Nombre": "Wilberto Zeron", "Examen 1": 88, "Examen 2": 90, "Examen 3": 100, "Examen 4": 87, "Promedio": 41.71428571428572}, "NT0007": {"Nombre": "Vanesa Bustillo", "Examen 1": 82, "Examen 2": 90, "Examen 3": 90, "Examen 4": 100, "Promedio": 41.371428571428574}, "NT0008": {"Nombre": "Alejandra Moreno", "Examen 1": 82, "Examen 2": 80, "Examen 3": 100, "Examen 4": 97, "Promedio": 41.02857142857143}, "NT0009": {"Nombre": "Vaensa Oseguera", "Examen 1": 82, "Examen 2": 90, "Examen 3": 90, "Examen 4": 97, "Promedio": 41.02857142857143}, "NT0010": {"Nombre": "Oralia Renderos", "Examen 1": 76, "Examen 2": 90, "Examen 3": 100, "Examen 4": 87, "Promedio": 40.34285714285715}, "NT0011": {"Nombre": "Elena Ortiz", "Examen 1": 80, "Examen 2": 90, "Examen 3": 90, "Examen 4": 87, "Promedio": 39.65714285714286}, "NT0012": {"Nombre": "Isael Monge ", "Examen 1": 78, "Examen 2": 80, "Examen 3": 100, "Examen 4": 77, "Promedio": 38.285714285714285}, "NT0013": {"Nombre": "Dinora Quintanilla", "Examen 1": 82, "Examen 2": 70, "Examen 3": 95, "Examen 4": 87, "Promedio": 38.17142857142857}, "NT0014": {"Nombre": "Pamela", "Examen 1": 94, "Examen 2": 80, "Examen 3": 80, "Examen 4": 79, "Promedio": 38.05714285714286}, "NT0015": {"Nombre": "Maricel Rivera", "Examen 1": 90, "Examen 2": 80, "Examen 3": 90, "Examen 4": 68, "Promedio": 37.48571428571429}, "NT0016": {"Nombre": "Perla Castillo ", "Examen 1": 76, "Examen 2": 85, "Examen 3": 90, "Examen 4": 74, "Promedio": 37.142857142857146}, "NT0017": {"Nombre": "Fernando Caranza", "Examen 1": 58, "Examen 2": 75, "Examen 3": 95, "Examen 4": 95, "Promedio": 36.91428571428572}, "NT0018": {"Nombre": "Kelyn Ayala", "Examen 1": 76, "Examen 2": 75, "Examen 3": 90, "Examen 4": 80, "Promedio": 36.68571428571428}, "NT0019": {"Nombre": "Bartola Flores", "Examen 1": 79, "Examen 2": 65, "Examen 3": 100, "Examen 4": 71, "Promedio": 36}, "NT0020": {"Nombre": "Jacsson Maradiaga", "Examen 1": 70, "Examen 2": 90, "Examen 3": 90, "Examen 4": 64, "Promedio": 35.885714285714286}, "NT0021": {"Nombre": "Maribel Perdomo", "Examen 1": 77, "Examen 2": 75, "Examen 3": 80, "Examen 4": 74, "Promedio": 34.971428571428575}, "NT0022": {"Nombre": "Aury Casco", "Examen 1": 70, "Examen 2": 85, "Examen 3": 80, "Examen 4": 69, "Promedio": 34.74285714285715}, "NT0023": {"Nombre": "Edith Maldonado", "Examen 1": 69, "Examen 2": 85, "Examen 3": 97, "Examen 4": 51, "Promedio": 34.51428571428572}, "NT0024": {"Nombre": "Beren Martinez", "Examen 1": 80, "Examen 2": 70, "Examen 3": 80, "Examen 4": 71, "Promedio": 34.4}, "NT0025": {"Nombre": "Darwing George", "Examen 1": 66, "Examen 2": 80, "Examen 3": 90, "Examen 4": 58, "Promedio": 33.6}, "NT0026": {"Nombre": "Oscar Mejia", "Examen 1": 78, "Examen 2": 50, "Examen 3": 90, "Examen 4": 69, "Promedio": 32.800000000000004}, "NT0027": {"Nombre": "Miriam Interiano ", "Examen 1": 76, "Examen 2": 55, "Examen 3": 95, "Examen 4": 48, "Promedio": 31.314285714285717}, "NT0028": {"Nombre": "Anderson Mejia", "Examen 1": 65, "Examen 2": 65, "Examen 3": 70, "Examen 4": 69, "Promedio": 30.742857142857147}, "NT0029": {"Nombre": "Jerson Guzman", "Examen 1": 61, "Examen 2": 70, "Examen 3": 75, "Examen 4": 56, "Promedio": 29.942857142857147}, "NT0030": {"Nombre": "Yulisa", "Examen 1": 62, "Examen 2": 20, "Examen 3": 85, "Examen 4": 43, "Promedio": 24}, "NT0031": {"Nombre": "Anderson Avila", "Examen 1": 70, "Examen 2": 85, "Examen 3": 90, "Examen 4": 95, "Promedio": 38.85714285714286}};
+
+    function verNota() {{
+      const id = document.getElementById('idInput').value.trim().toUpperCase();
+      const estudiante = estudiantes[id];
+      const div = document.getElementById('resultado');
+
+      if (!estudiante) {{
+        div.innerHTML = "<p>ID no encontrado.</p>";
+        div.style.display = "block";
+        return;
+      }}
+
+      let html = `
+        <p><strong>Nombre:</strong> ${'{'}estudiante.Nombre{'}'}</p>
+        <p><strong>Tareas:</strong> 20</p>
+        <p><strong>Exámenes:</strong> ${'{'}parseFloat(estudiante["Promedio"]).toFixed(2){'}'}</p>
+        <p><strong>Total Momentáneo:</strong> ${'{'}(20 + parseFloat(estudiante["Promedio"])).toFixed(2){'}'}</p>
+        <p><strong>Presentación:</strong> -</p>
+        <h3>Acumulado de Exámenes: ${'{'}parseFloat(estudiante["Promedio"]).toFixed(2){'}'}</h3>
+        <ul>
+          <li>Examen 1: ${'{'}estudiante["Examen 1"]{'}'}</li>
+          <li>Examen 2: ${'{'}estudiante["Examen 2"]{'}'}</li>
+          <li>Examen 3: ${'{'}estudiante["Examen 3"]{'}'}</li>
+          <li>Examen 4: ${'{'}estudiante["Examen 4"]{'}'}</li>
+        </ul>
+      `;
+
+      div.innerHTML = html;
+      div.style.display = "block";
+    }}
+  </script>
+</body>
+</html>
