@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Consulta de Notas - Escuela Bíblica Emanuel</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      width: 300px;
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #2980b9;
+      color: white;
+      font-size: 16px;
+      border: none;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+    .card {
+      margin-top: 30px;
+      border: 1px solid #ccc;
+      padding: 20px;
+      background: #fff;
+      width: 500px;
+    }
+    ul {
+      margin-top: 10px;
+      padding-left: 20px;
+    }
+  </style>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f7f7f7;
+      color: #222;
+    }
+    h1 {
+      color: #1c3b57;
+      margin-bottom: 30px;
+      font-size: 26px;
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #2b8a3e;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #237032;
+      cursor: pointer;
+    }
+    #resultado {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+      width: 50%;
+    }
+    @media (max-width: 600px) {
+      #resultado {
+        width: 90%;
+        font-size: 14px;
+      }
+      input, button {
+        width: 100%;
+        margin-top: 10px;
+      }
+    }
+  </style>
+
+</head>
+<body>
+  <h1>ESCUELA BÍBLICA EMANUEL 2025 - PANORAMA DEL NUEVO TESTAMENTO</h1>
+  <div style="text-align: center;">
+    <input type="text" id="idInput" placeholder="Ingresá tu ID (Ej: NT0001)" />
+    <button onclick="verNota()">Ver Nota</button>
+  </div>
+
+  <div class="card" id="resultado" style="display:none; margin:auto;"></div>
+
+  <script>
+    const estudiantes = {"NT0001": {"Nombre": "Javier Reyes ", "Examén_1": 94, "Examén_2": 100, "Examén_3": 100, "Examén_4": 100, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 45.02857142857143, "Total  Momentaneo": 65.02857142857144, "Presentación": NaN}, "NT0002": {"Nombre": "Glendy Antunez ", "Examén_1": 88, "Examén_2": 95, "Examén_3": 100, "Examén_4": 100, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 43.77142857142857, "Total  Momentaneo": 63.77142857142857, "Presentación": NaN}, "NT0003": {"Nombre": "Emely Mejia", "Examén_1": 88, "Examén_2": 95, "Examén_3": 90, "Examén_4": 100, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 42.62857142857143, "Total  Momentaneo": 62.62857142857143, "Presentación": NaN}, "NT0004": {"Nombre": "Raul Mejia ", "Examén_1": 88, "Examén_2": 95, "Examén_3": 90, "Examén_4": 97, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 42.285714285714285, "Total  Momentaneo": 62.285714285714285, "Presentación": NaN}, "NT0005": {"Nombre": "Oscar Romero", "Examén_1": 88, "Examén_2": 95, "Examén_3": 100, "Examén_4": 84, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 41.94285714285715, "Total  Momentaneo": 61.94285714285715, "Presentación": NaN}, "NT0006": {"Nombre": "Wilberto Zeron", "Examén_1": 88, "Examén_2": 90, "Examén_3": 100, "Examén_4": 87, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 41.71428571428572, "Total  Momentaneo": 61.71428571428572, "Presentación": NaN}, "NT0007": {"Nombre": "Vanesa Bustillo", "Examén_1": 82, "Examén_2": 90, "Examén_3": 90, "Examén_4": 100, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 41.371428571428574, "Total  Momentaneo": 61.371428571428574, "Presentación": NaN}, "NT0008": {"Nombre": "Alejandra Moreno", "Examén_1": 82, "Examén_2": 80, "Examén_3": 100, "Examén_4": 97, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 41.02857142857143, "Total  Momentaneo": 61.02857142857143, "Presentación": NaN}, "NT0009": {"Nombre": "Vaensa Oseguera", "Examén_1": 82, "Examén_2": 90, "Examén_3": 90, "Examén_4": 97, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 41.02857142857143, "Total  Momentaneo": 61.02857142857143, "Presentación": NaN}, "NT0010": {"Nombre": "Oralia Renderos", "Examén_1": 76, "Examén_2": 90, "Examén_3": 100, "Examén_4": 87, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 40.34285714285715, "Total  Momentaneo": 60.34285714285715, "Presentación": NaN}, "NT0011": {"Nombre": "Elena Ortiz", "Examén_1": 80, "Examén_2": 90, "Examén_3": 90, "Examén_4": 87, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 39.65714285714286, "Total  Momentaneo": 59.65714285714286, "Presentación": NaN}, "NT0012": {"Nombre": "Isael Monge ", "Examén_1": 78, "Examén_2": 80, "Examén_3": 100, "Examén_4": 77, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 38.285714285714285, "Total  Momentaneo": 58.285714285714285, "Presentación": NaN}, "NT0013": {"Nombre": "Dinora Quintanilla", "Examén_1": 82, "Examén_2": 70, "Examén_3": 95, "Examén_4": 87, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 38.17142857142857, "Total  Momentaneo": 58.17142857142857, "Presentación": NaN}, "NT0014": {"Nombre": "Pamela", "Examén_1": 94, "Examén_2": 80, "Examén_3": 80, "Examén_4": 79, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 38.05714285714286, "Total  Momentaneo": 58.05714285714286, "Presentación": NaN}, "NT0015": {"Nombre": "Maricel Rivera", "Examén_1": 90, "Examén_2": 80, "Examén_3": 90, "Examén_4": 68, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 37.48571428571429, "Total  Momentaneo": 57.48571428571429, "Presentación": NaN}, "NT0016": {"Nombre": "Perla Castillo ", "Examén_1": 76, "Examén_2": 85, "Examén_3": 90, "Examén_4": 74, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 37.142857142857146, "Total  Momentaneo": 57.142857142857146, "Presentación": NaN}, "NT0017": {"Nombre": "Fernando Caranza", "Examén_1": 58, "Examén_2": 75, "Examén_3": 95, "Examén_4": 95, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 36.91428571428572, "Total  Momentaneo": 56.91428571428572, "Presentación": NaN}, "NT0018": {"Nombre": "Kelyn Ayala", "Examén_1": 76, "Examén_2": 75, "Examén_3": 90, "Examén_4": 80, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 36.68571428571428, "Total  Momentaneo": 56.68571428571428, "Presentación": NaN}, "NT0019": {"Nombre": "Bartola Flores", "Examén_1": 79, "Examén_2": 65, "Examén_3": 100, "Examén_4": 71, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 36, "Total  Momentaneo": 56, "Presentación": NaN}, "NT0020": {"Nombre": "Jacsson Maradiaga", "Examén_1": 70, "Examén_2": 90, "Examén_3": 90, "Examén_4": 64, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 35.885714285714286, "Total  Momentaneo": 55.885714285714286, "Presentación": NaN}, "NT0021": {"Nombre": "Maribel Perdomo", "Examén_1": 77, "Examén_2": 75, "Examén_3": 80, "Examén_4": 74, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 34.971428571428575, "Total  Momentaneo": 54.971428571428575, "Presentación": NaN}, "NT0022": {"Nombre": "Aury Casco", "Examén_1": 70, "Examén_2": 85, "Examén_3": 80, "Examén_4": 69, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 34.74285714285715, "Total  Momentaneo": 54.74285714285715, "Presentación": NaN}, "NT0023": {"Nombre": "Edith Maldonado", "Examén_1": 69, "Examén_2": 85, "Examén_3": 97, "Examén_4": 51, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 34.51428571428572, "Total  Momentaneo": 54.51428571428572, "Presentación": NaN}, "NT0024": {"Nombre": "Beren Martinez", "Examén_1": 80, "Examén_2": 70, "Examén_3": 80, "Examén_4": 71, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 34.4, "Total  Momentaneo": 54.4, "Presentación": NaN}, "NT0025": {"Nombre": "Darwing George", "Examén_1": 66, "Examén_2": 80, "Examén_3": 90, "Examén_4": 58, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 33.6, "Total  Momentaneo": 53.6, "Presentación": NaN}, "NT0026": {"Nombre": "Oscar Mejia", "Examén_1": 78, "Examén_2": 50, "Examén_3": 90, "Examén_4": 69, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 32.800000000000004, "Total  Momentaneo": 52.800000000000004, "Presentación": NaN}, "NT0027": {"Nombre": "Miriam Interiano ", "Examén_1": 76, "Examén_2": 55, "Examén_3": 95, "Examén_4": 48, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 31.314285714285717, "Total  Momentaneo": 51.31428571428572, "Presentación": NaN}, "NT0028": {"Nombre": "Anderson Mejia", "Examén_1": 65, "Examén_2": 65, "Examén_3": 70, "Examén_4": 69, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 30.742857142857147, "Total  Momentaneo": 50.74285714285715, "Presentación": NaN}, "NT0029": {"Nombre": "Jerson Guzman", "Examén_1": 61, "Examén_2": 70, "Examén_3": 75, "Examén_4": 56, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 29.942857142857147, "Total  Momentaneo": 49.94285714285715, "Presentación": NaN}, "NT0030": {"Nombre": "Yulisa", "Examén_1": 62, "Examén_2": 20, "Examén_3": 85, "Examén_4": 43, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 20, "Promedio": 24, "Total  Momentaneo": 44, "Presentación": NaN}, "NT0031": {"Nombre": "Anderson Avila", "Examén_1": 70, "Examén_2": 85, "Examén_3": 90, "Examén_4": 95, "Examén_5": NaN, "Examén_6": NaN, "Examén_7": NaN, "Tareas": 5, "Promedio": 38.85714285714286, "Total  Momentaneo": 43.85714285714286, "Presentación": NaN}};
+
+    function mostrarNota(valor) {
+      return (valor === null || valor === undefined || isNaN(valor)) ? "Pendiente" : valor;
+    }
+
+    function verNota() {
+      const id = document.getElementById('idInput').value.trim().toUpperCase();
+      const estudiante = estudiantes[id];
+      const div = document.getElementById('resultado');
+
+      if (!estudiante) {
+        div.innerHTML = "<p>ID no encontrado. Verificá que esté bien escrito.</p>";
+        div.style.display = "block";
+        return;
+      }
+
+      let html = `
+        <p><strong>Nombre:</strong> ${estudiante.Nombre}</p>
+        <p><strong>Tareas:</strong> ${estudiante.Tareas}</p>
+        <p><strong>Promedio de Exámenes:</strong> ${mostrarNota(estudiante["Promedio"]).toFixed ? mostrarNota(estudiante["Promedio"]).toFixed(2) : mostrarNota(estudiante["Promedio"])}</p>
+        <p><strong>Total Momentáneo:</strong> ${mostrarNota(estudiante["Total  Momentaneo"]).toFixed ? mostrarNota(estudiante["Total  Momentaneo"]).toFixed(2) : mostrarNota(estudiante["Total  Momentaneo"])}</p>
+        <p><strong>Presentación:</strong> ${estudiante["Presentación"] ? estudiante["Presentación"] : "-" }</p>
+        <h3>Acumulado de Exámenes</h3>
+        <ul>
+          <li>Examen 1: ${mostrarNota(estudiante["Examén_1"])}</li>
+          <li>Examen 2: ${mostrarNota(estudiante["Examén_2"])}</li>
+          <li>Examen 3: ${mostrarNota(estudiante["Examén_3"])}</li>
+          <li>Examen 4: ${mostrarNota(estudiante["Examén_4"])}</li>
+          <li>Examen 5: ${mostrarNota(estudiante["Examén_5"])}</li>
+          <li>Examen 6: ${mostrarNota(estudiante["Examén_6"])}</li>
+          <li>Examen 7: ${mostrarNota(estudiante["Examén_7"])}</li>
+        </ul>
+      `;
+
+      div.innerHTML = html;
+      div.style.display = "block";
+    }
+  </script>
+</body>
+</html>
